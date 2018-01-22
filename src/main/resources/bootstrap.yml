@@ -1,0 +1,72 @@
+server:
+  port: 10001
+
+management:
+  context-path: "${EUREKA_MONITOR_PATH}"
+
+spring:
+  application:
+    name: config-server
+    index: 0
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/ewillgo/project-configs
+          force-pull: true
+          clone-on-start: false
+          repos:
+            dev:
+              uri: "${spring.cloud.config.server.git.uri}"
+              pattern: "*/dev"
+              force-pull: true
+              clone-on-start: false
+              searchPaths: "{application}"
+            test:
+              uri: "${spring.cloud.config.server.git.uri}"
+              pattern: "*/test"
+              force-pull: true
+              clone-on-start: false
+              searchPaths: "{application}"
+            prev:
+              uri: "${spring.cloud.config.server.git.uri}"
+              pattern: "*/prev"
+              force-pull: true
+              clone-on-start: false
+              searchPaths: "{application}"
+            prod:
+              uri: "${spring.cloud.config.server.git.uri}"
+              pattern: "*/prod"
+              force-pull: true
+              clone-on-start: false
+              searchPaths: "{application}"
+          timeout: 5
+        encrypt:
+          enabled: true
+        default-label: master
+      allow-override: true
+      override-none: true
+      override-system-properties: false
+
+
+eureka:
+  client:
+    enabled: true
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: "http://${EUREKA_USER}:${EUREKA_PASSWORD}@localhost:10000/eureka"
+  instance:
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
+    hostname: "${spring.application.name}"
+    status-page-url-path: "${management.context-path}/info"
+    health-check-url-path: "${management.context-path}/health"
+
+encrypt:
+  keyStore:
+    location: classpath:/server.jks
+    password: "${SP_PASSWORD}"
+    alias: "${SP_ALIAS}"
+    secret: "${SP_SECRET}"
