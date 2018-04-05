@@ -8,7 +8,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/ewillgo/project-configuration
+          uri: https://github.com/ewillgo/config-repo
           force-pull: true
           clone-on-start: false
           repos:
