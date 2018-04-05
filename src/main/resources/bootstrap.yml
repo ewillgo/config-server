@@ -1,18 +1,14 @@
 server:
   port: 10001
 
-management:
-  context-path: "${EUREKA_MONITOR_PATH}"
-
 spring:
   application:
     name: config-server
-    index: 0
   cloud:
     config:
       server:
         git:
-          uri: https://github.com/ewillgo/project-configs
+          uri: https://github.com/ewillgo/project-configuration
           force-pull: true
           clone-on-start: false
           repos:
@@ -48,7 +44,6 @@ spring:
       override-none: true
       override-system-properties: false
 
-
 eureka:
   client:
     enabled: true
@@ -61,8 +56,8 @@ eureka:
     lease-expiration-duration-in-seconds: 30
     lease-renewal-interval-in-seconds: 10
     hostname: "${spring.application.name}"
-    status-page-url-path: "${management.context-path}/info"
-    health-check-url-path: "${management.context-path}/health"
+    status-page-url-path: "/actuator/info"
+    health-check-url-path: "/actuator/health"
 
 encrypt:
   keyStore:

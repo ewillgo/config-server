@@ -34,7 +34,7 @@
         </encoder>
     </appender>
 
-    <logger name="cc.sportsdb.configserver" level="DEBUG" />
+    <logger name="config.server" level="INFO" />
 
     <root level="INFO">
         <appender-ref ref="console"/>
