@@ -1,5 +1,6 @@
 server:
   port: 10001
+  address: localhost
 
 spring:
   application:
@@ -50,7 +51,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: "http://${EUREKA_USER}:${EUREKA_PASSWORD}@localhost:10000/eureka"
+      defaultZone: "http://${EUREKA_USER}:${EUREKA_PASSWORD}@${server.address}:10000/eureka"
   instance:
     prefer-ip-address: true
     lease-expiration-duration-in-seconds: 30
